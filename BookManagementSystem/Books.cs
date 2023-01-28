@@ -6,14 +6,19 @@ namespace BookManagementSystem
 
 		// general book information 
 		public string Title;
-		public string Auther;
+		public string Author;
 		public string Genre;
 		public int PageCount;
-		public int BookID;
+		public string BookID;
 
 		public void Catalogue()
 		{
 			Console.WriteLine("Inside Catalogue() section");
+		}
+
+		public void CreateNewBookEntry()
+		{
+
 		}
 
 	}

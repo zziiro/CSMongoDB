@@ -11,32 +11,30 @@ namespace BookManagementSystem
 			string userName;
 			string passWord;
 			string forgotPassword;
+			int count = 1; // for trying too many times
+			// pompt with option to change password or kick user out for saftey reasons
 
-			try
-			{
-				// get username
-				Console.WriteLine("Username:\n");
-				userName = Console.ReadLine();
 
-				// get password
-				Console.WriteLine("Password:\n");
-				passWord = Console.ReadLine();
+            // get username
+            Console.WriteLine("Username:\n");
+            userName = Console.ReadLine();
 
-				Console.WriteLine("Forgot Password? Type F"); // if user needs to reset their password
-				forgotPassword = Console.ReadLine();
-				if(forgotPassword == "F")
-				{
-					
-				} else if (forgotPassword == null)
-				{
+            // get password
+            Console.WriteLine("Password:\n");
+            passWord = Console.ReadLine();
 
-				}
-			} catch (Exception e) // create your own exception to see if user already exists 
-			{
-				Console.WriteLine("[ERROR] ", e);
-				Console.WriteLine("Invalid Input");
-			}
-		}
+			// if forgot password 
+            Console.WriteLine("Forgot Password? Type F"); // if user needs to reset their password
+            forgotPassword = Console.ReadLine();
+            if (forgotPassword == "F" || count < 8)
+            {
+				// user to reset password
+            }
+
+			// check if user exitsts already to allow log in
+			// if (username && password in Database.JSON file) -- user exists allow login
+			// else -- user does not exist send to become a member function
+        }
 
 
 		// become a member function
@@ -45,7 +43,7 @@ namespace BookManagementSystem
 			string userName;
 			string passWord;
 			string email;
-			string[] users; // for existing members and added new member to existing users 
+			String[] users = new String[] { "Colin", "Mike", "Cameron"}; // for existing members and added new member to existing users 
 
 			try
 			{
@@ -59,8 +57,6 @@ namespace BookManagementSystem
 
 				Console.WriteLine("Email:\n");
 				email = Console.ReadLine();
-
-
 
 
             } catch (Exception e) // if there is an error adding the a new user
