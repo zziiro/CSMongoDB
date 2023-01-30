@@ -8,14 +8,9 @@ namespace BookManagementSystem {
 
         public static void Main(string[] args)
         {
-            try
-            {
-                PromptUser();
-            }catch (Exception e) {
-                Console.WriteLine("[ERROR]", e);
-            }
 
-                      
+            PromptUser();
+         
         }
 
         // frist user prompt -- made like this for input validation
@@ -23,7 +18,7 @@ namespace BookManagementSystem {
         {
             // get the intiailze user decision
             // if a librarian or a normal user 
-            string userPromptOne;
+            string? userPromptOne;
 
             // get users first action
             Console.WriteLine("A: User | B: Librarian");
@@ -50,7 +45,7 @@ namespace BookManagementSystem {
         public static void userPortion()
         {
             // init variables
-            string userAction;
+            string? userAction;
 
             // init class methods
             userClass user = new userClass();

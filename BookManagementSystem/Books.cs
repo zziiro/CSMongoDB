@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BookManagementSystem
 {
-	public class Books
+	public class Books : Program
 	{
 
 		// general book information 
