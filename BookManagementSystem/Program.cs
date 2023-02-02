@@ -13,23 +13,17 @@ namespace BookManagementSystem {
          
         }
 
-        // frist user prompt -- made like this for input validation
         public static void PromptUser()
         {
-            // get the intiailze user decision
-            // if a librarian or a normal user 
             string? userPromptOne;
 
             // get users first action
             Console.WriteLine("A: User | B: Librarian");
             userPromptOne = Console.ReadLine();
-
-            // if action is User (A)
             if (userPromptOne == "A")
             {
                 userPortion();
             }
-            // if action is Librarian (B)
             else if (userPromptOne == "B")
             {
                 LibrarianPortion();
@@ -47,11 +41,10 @@ namespace BookManagementSystem {
             // init variables
             string? userAction;
 
-            // init class methods
-            userClass user = new userClass();
-            Books book = new Books();
+            // class inits
+            User user = new User();
 
-
+       
             Console.WriteLine("Type of Action: ");
             Console.WriteLine("A: Log In\nB: Become Member\nC: View Catalogue");
             // create variable to hold user action
@@ -59,16 +52,17 @@ namespace BookManagementSystem {
             if (userAction == "A") // if user wants to log in 
             {
                 // send user to log in screen
-                user.LogIn();
+                Console.WriteLine("Log in");
             }
             else if (userAction == "B") // if user wants to become a member
             {
-                user.becomeMember();
+                user.BecomeMember();
             }
             else if (userAction == "C") // if user wants to see the catalogue of books
             {
-                book.Catalogue();
-            } else
+                Console.WriteLine("");
+            }
+            else
             {
                 Console.WriteLine("[ERROR] Invalid Input, please try again..");
                 userPortion();
