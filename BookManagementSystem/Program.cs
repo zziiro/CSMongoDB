@@ -1,5 +1,6 @@
 ﻿
 using System;
+using MongoDB.Driver;
 
 namespace BookManagementSystem {
 
@@ -52,7 +53,7 @@ namespace BookManagementSystem {
             if (userAction == "A") // if user wants to log in 
             {
                 // send user to log in screen
-                Console.WriteLine("Log in");
+                user.LogIn();
             }
             else if (userAction == "B") // if user wants to become a member
             {

@@ -10,9 +10,11 @@ public class UserModel
     [BsonId]
     [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
 
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? username { get; set; }
-    public string? password { get; set; }
+    public string Id { get; set; }
+    public string FirstName { get; set; }
+    public string FullName => $"{FirstName} {LastName}";
+    public string LastName { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
 }
 

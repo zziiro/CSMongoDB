@@ -18,11 +18,24 @@ public class BookDataAccess
 
     }
 
+    public async Task<List<BookModel>> Catalogue()
+    {
+        var booksCollection = ConnectToMongo<BookModel>(bookCollection);
+        var catalogue = await booksCollection.FindAsync(_ => true);
+        return catalogue.ToList();
+    }
+
     public Task CreateBook(BookModel book) // creates a new book into db
     {
         // prompt user the BookModel then call this function to send to db
         var booksCollection = ConnectToMongo<BookModel>(bookCollection);
         return booksCollection.InsertOneAsync(book);
+    }
+
+    public Task DeleteBook(BookModel book)
+    {
+        var booksCollection = ConnectToMongo<BookModel>(bookCollection);
+        return booksCollection.DeleteOneAsync(c => c.Id == book.Id);
     }
 }
 
