@@ -61,7 +61,7 @@ namespace BookManagementSystem {
             }
             else if (userAction == "C") // if user wants to see the catalogue of books
             {
-                Console.WriteLine("");
+                user.SeeCatalogue();
             }
             else
             {

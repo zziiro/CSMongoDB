@@ -25,11 +25,11 @@ public class BookDataAccess
         return catalogue.ToList();
     }
 
-    public Task CreateBook(BookModel book) // creates a new book into db
+    public void CreateBook(BookModel book) // creates a new book into db
     {
         // prompt user the BookModel then call this function to send to db
         var booksCollection = ConnectToMongo<BookModel>(bookCollection);
-        return booksCollection.InsertOneAsync(book);
+        booksCollection.InsertOneAsync(book);
     }
 
     public Task DeleteBook(BookModel book)

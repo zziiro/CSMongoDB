@@ -10,11 +10,11 @@ namespace BookManagementSystem;
 public class User
 {
 
-    public async void LogIn() // user log in
+    public void LogIn() // user log in
     {
         // variable inits
-        string username;
-        string password;
+        string? username;
+        string? password;
 
         // class init
         UserDataAccess UDA = new UserDataAccess();
@@ -42,7 +42,7 @@ public class User
 
     }
 
-    public async void BecomeMember() // if user wants to become a member
+    public void BecomeMember() // if user wants to become a member
     {
         // variable inits
         string? FirstName;
@@ -74,8 +74,13 @@ public class User
             password = password
         };
 
-        await UDA.CreateUser(user); // send user model to mongodb
+        UDA.CreateUser(user); // send user model to mongodb
             
+    }
+
+    public void SeeCatalogue() {
+        // returns the entire catalogue
+
     }
 }
 
