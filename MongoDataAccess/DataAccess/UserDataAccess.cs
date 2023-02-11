@@ -10,6 +10,7 @@ public class UserDataAccess
     private const string ConnectionString = "mongodb://127.0.0.1:27017";
     private const string DatabaseName = "bmsDB";
     private const string userCollection = "user";
+    private const string userLogInCollection = "userLogIn";
     private const string bookCollection = "books";
 
     private IMongoCollection<T> ConnectToMongo<T>(in string collection) // connect to mongo
@@ -17,7 +18,6 @@ public class UserDataAccess
         var client = new MongoClient(ConnectionString);
         var db = client.GetDatabase(DatabaseName);
         return db.GetCollection<T>(collection);
-
     }
 
     public void CreateUser(UserModel user) // adds user to mongodb
@@ -26,7 +26,60 @@ public class UserDataAccess
         // prompt user with UserModel() class and then call this function from there
         var usersCollection = ConnectToMongo<UserModel>(userCollection);
         usersCollection.InsertOne(user);
-        
+    }
+
+    public void CreateUserLogIn(UserModelLogIn umLogIn) // saves a users LogIn information
+    {
+        var UserModelLogInCollection = ConnectToMongo<UserModelLogIn>(userLogInCollection);
+        UserModelLogInCollection.InsertOne(umLogIn);
+    }
+
+    public void DeleteAccount(UserModel user) // allow the user to delete their account
+    {
+        var usersCollection = ConnectToMongo<UserModel>(userCollection);
+        usersCollection.DeleteOne(u => u.Id == user.Id);
+    }
+
+    public void DoesUserExist(string? username, string? password) // [LOG IN METHOD]
+    {
+
+        // class init
+        UserPortion.User user = new UserPortion.User();
+        try
+        {
+            // connect to mongo
+            var client = new MongoClient(ConnectionString);
+            var db = client.GetDatabase(DatabaseName);
+            var LogInCollection = db.GetCollection<UserModelLogIn>(userLogInCollection);
+
+            // make filters
+            var userInfoFilter = Builders<UserModelLogIn>.Filter.Eq(u => u.username, username);
+
+            // apply filters to collection search
+            var userInfoFind = LogInCollection.Find(userInfoFilter).FirstOrDefault().ToBsonDocument();
+
+            // check if they match
+            foreach (var i in userInfoFind) // loop through userInfoFind
+            {
+                if ("username=" + username == i.ToString()) // if username provided matches what is in the 
+                {
+                    foreach(var k in userInfoFind)
+                    {
+                        if ("password=" + password == k.ToString())
+                        {
+                            Console.WriteLine("Logged In!");
+                            user.UserHome();
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Username or password is incorrect..");
+            user.LogIn();
+        }
+
     }
 
     public async Task<List<BookModel>> SeeCatalogue() // if user wants to see the entire catalouge
@@ -34,63 +87,9 @@ public class UserDataAccess
         var booksCollection = ConnectToMongo<BookModel>(bookCollection);
         var catalogue = await booksCollection.FindAsync(_ => true);
         return catalogue.ToList();
-        
     }
 
     
-
-    public void DoesUserExist(string username, string password) // to see if a user exists when trying to log in
-    {
-
-        try
-        {
-            // connect to mongo
-            var client = new MongoClient(ConnectionString);
-            var db = client.GetDatabase(DatabaseName);
-            var usersCollection = db.GetCollection<BsonDocument>("user");
-
-            // make filters
-            var usernameFilter = Builders<BsonDocument>.Filter.Eq("username", username);
-            var passwordFilter = Builders<BsonDocument>.Filter.Eq("password", password);
-
-            // put filters into variables
-            var userDoc = usersCollection.Find(usernameFilter).FirstOrDefault();
-            var passwordDoc = usersCollection.Find(passwordFilter).FirstOrDefault();
-
-            // turn filter varibales to strings
-            var usernameDocToString = userDoc.ToString();
-            var passwordDocToString = passwordDoc.ToString();
-
-            Console.WriteLine(usernameDocToString);
-            Console.WriteLine(passwordDocToString);
-
-
-            // check if they match
-            if (usernameDocToString == username)
-            {
-                if (passwordDocToString == password)
-                {
-                    Console.WriteLine("Successful Log In!");
-                }
-                else
-                {
-                    Console.WriteLine("Password incorrect..");
-                    // someone how send back to log in page
-                }
-            }
-            else
-            {
-                Console.WriteLine("Username incorrect..");
-                // someone how send back to log in page
-            }
-        }
-        catch (Exception ex) // catch exceptions
-        {
-            Console.WriteLine(ex.Message);
-        }
-        
-    }
-
     public void TestConnection() // test the connection to the mongo server
     {
         try
@@ -114,22 +113,5 @@ public class UserDataAccess
         }
     }
 
+   
 }
-
-
-//foreach (var user in users)
-//            {
-//                if (username == usernameFilter.ToString())
-//                {
-//                    if (password == passFilter.ToString())
-//                    {
-//                        Console.WriteLine("Successful Log In");
-//                        //userPortion(); find out how to change to file scoped
-//                    }
-//                }
-//                else if (username != usernameFilter.ToString())
-//{
-//    Console.WriteLine("Username or password incorrect");
-//}
-
-//            }

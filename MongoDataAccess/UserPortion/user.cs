@@ -1,14 +1,21 @@
 ﻿using System;
+using System;
 using MongoDataAccess.Models;
 using MongoDataAccess.DataAccess;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Core.Configuration;
 
-namespace BookManagementSystem;
+
+namespace MongoDataAccess.UserPortion;
 
 public class User
 {
+
+    public void UserHome()
+    {
+        Console.WriteLine("Back to UserHome()");
+    }
 
     public void LogIn() // user log in
     {
@@ -25,11 +32,12 @@ public class User
         Console.WriteLine("Password: ");
         password = Console.ReadLine();
 
-        if(username == string.Empty)
+        if (username == string.Empty)
         {
             Console.WriteLine("Please enter a username..");
             LogIn();
-        }else if (password == string.Empty)
+        }
+        else if (password == string.Empty)
         {
             Console.WriteLine("Please enter a password..");
             LogIn();
@@ -69,18 +77,28 @@ public class User
         UserModel user = new UserModel() // create user model
         {
             FirstName = FirstName,
-            LastName = LastName,
+            LastName = LastName
+        };
+
+        UserModelLogIn umLogIn = new UserModelLogIn()
+        {
             username = username,
             password = password
         };
 
-        UDA.CreateUser(user); // send user model to mongodb
-            
+        UDA.CreateUser(user);
+        UDA.CreateUserLogIn(umLogIn);
+            // send user model to mongodb
+
     }
 
-    public void SeeCatalogue() {
-        // returns the entire catalogue
+    public async void SeeCatalogue()
+    {
+        UserDataAccess user = new UserDataAccess();
 
+        await user.SeeCatalogue(); // show catalogue
     }
 }
+
+
 

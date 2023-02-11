@@ -29,13 +29,22 @@ public class BookDataAccess
     {
         // prompt user the BookModel then call this function to send to db
         var booksCollection = ConnectToMongo<BookModel>(bookCollection);
-        booksCollection.InsertOneAsync(book);
+        booksCollection.InsertOne(book);
     }
 
-    public Task DeleteBook(BookModel book)
+    public void DeleteBook() // delete a document of a book
     {
+        string? bookTitle;
+
+        Models.BookModel book = new Models.BookModel();
+
+        Console.WriteLine("Book Title: ");
+        bookTitle = Console.ReadLine();
+
+        book.Title = bookTitle;
+
         var booksCollection = ConnectToMongo<BookModel>(bookCollection);
-        return booksCollection.DeleteOneAsync(c => c.Id == book.Id);
+        booksCollection.DeleteOne(c => c.Title == book.Title);
     }
 }
 
