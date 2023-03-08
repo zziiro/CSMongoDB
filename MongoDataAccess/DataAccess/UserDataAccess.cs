@@ -82,11 +82,17 @@ public class UserDataAccess
 
     }
 
-    public async Task<List<BookModel>> SeeCatalogue() // if user wants to see the entire catalouge
+    public void SeeCatalogue() // if user wants to see the entire catalouge
     {
-        var booksCollection = ConnectToMongo<BookModel>(bookCollection);
-        var catalogue = await booksCollection.FindAsync(_ => true);
-        return catalogue.ToList();
+        try {
+            var booksCollection = ConnectToMongo<BookModel>(bookCollection);
+            var catalogue = booksCollection.Find(_ => true);
+            catalogue.ToList();
+        }catch(Exception ex)
+        {
+            Console.WriteLine("[ERROR] There has been an error..");
+        }
+        
     }
 
     

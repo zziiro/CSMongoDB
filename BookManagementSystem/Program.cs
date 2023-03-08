@@ -12,7 +12,7 @@ namespace BookManagementSystem {
         public static void Main(string[] args)
         {
 
-            PromptUser();
+            PromptUser(); // starts the entire program
          
         }
 
@@ -103,3 +103,6 @@ namespace BookManagementSystem {
         }
     }
 }
+
+// basic pathway of code
+/* Program.cs -> user.cs -> user.cs [UserModel.cs]-[UserModelLogIn.cs] -> [UserDataAccess]-[BookDataAccess] */

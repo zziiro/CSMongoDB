@@ -92,11 +92,11 @@ public class User
 
     }
 
-    public async void SeeCatalogue()
+    public void SeeCatalogue()
     {
         UserDataAccess user = new UserDataAccess();
 
-        await user.SeeCatalogue(); // show catalogue
+        user.SeeCatalogue(); // show catalogue
     }
 }
 
