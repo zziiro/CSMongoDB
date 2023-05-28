@@ -7,7 +7,7 @@ namespace MongoDataAccess.DataAccess;
 
 public class AdminDataAccess
 {
-    private const string ConnectionString = "mongodb://127.0.0.1:27017";
+    private const string ConnectionString = "";
     private const string DatabaseName = "bmsDB";
     private const string AdminCollection = "AdminLogIn";
 
