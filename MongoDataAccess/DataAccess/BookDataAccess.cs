@@ -6,7 +6,7 @@ namespace MongoDataAccess.DataAccess;
 
 public class BookDataAccess
 {
-    private const string ConnectionString = "mongodb://127.0.0.1:27017";
+    private const string ConnectionString = "";
     private const string DatabaseName = "bmsDB";
     private const string bookCollection = "books";
 
