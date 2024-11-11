@@ -8,8 +8,8 @@ namespace MongoDataAccess.DataAccess;
 public class AdminDataAccess
 {
     private const string ConnectionString = "";
-    private const string DatabaseName = "bmsDB";
-    private const string AdminCollection = "AdminLogIn";
+    private const string DatabaseName = "";
+    private const string AdminCollection = "";
 
     public IMongoCollection<T> ConnectToMongo<T>(in string collection)
 	{
