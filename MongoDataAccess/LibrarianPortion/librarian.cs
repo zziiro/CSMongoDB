@@ -10,9 +10,9 @@ namespace MongoDataAccess.LibrarianPortion;
 
 public class Librarian
 {
-    private const string ConnectionString = "mongodb://127.0.0.1:27017";
-    private const string DatabaseName = "bmsDB";
-    private const string CollectionName = "AdminLogIn";
+    private const string ConnectionString = "";
+    private const string DatabaseName = "";
+    private const string CollectionName = "";
 
 
     /// <summary>
